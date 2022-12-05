@@ -1,0 +1,25 @@
+{
+  "name": "canvasjs-charts-technical-indicators",
+  "version": "1.0.0",
+  "description": "Add Technical Indicators like SMA, EMA to CanvasJS Charts",
+  "main": "dist/canvasjs-charts-technical-indicators.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishwas-r/CanvasJS-Charts-Technical-Indicators.git"
+  },
+  "keywords": [
+    "canvasjs charts",
+	"canvasjs charts technical indicators",
+	"chart technical indicators",
+	"sma",
+	"simple moving average",
+	"ema",
+	"exponential moving average"
+  ],
+  "author": "Vishwas R",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vishwas-r/CanvasJS-Charts-Technical-Indicators/issues"
+  },
+  "homepage": "https://github.com/vishwas-r/CanvasJS-Charts-Technical-Indicators#readme"
+}
