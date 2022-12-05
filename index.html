@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+body {
+	width: 75%;
+	margin: auto;
+}
+</style>
+<script type="text/javascript">
+
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "light1", // "light2", "dark1", "dark2"
+	animationEnabled: false, // change to true		
+	title:{
+		text: "Add Technical Indicators to CanvasJS Charts"
+	},
+	technicalIndicators: {
+		sma: {
+			enabled: true,
+			linkedDataSeriesIndex: 0,
+			period: 7,
+			//color: "green",
+			showInLegend: true,
+			name: "SMA"
+		},
+		
+		ema: {
+			enabled: true,
+			linkedDataSeriesIndex: 0,
+			period: 7,
+			//color: "red",
+			showInLegend: true,
+			name: "EMA"
+		}
+	},
+	toolTip: {
+		shared: true
+	},
+	data: [{
+		type: "candlestick",
+		dataPoints: [
+			{x: new Date(2020,01,01),y:[5198, 5629, 5159, 5385]},
+			{x: new Date(2020,02,01),y:[5366, 5499, 5135, 5295]},
+			{x: new Date(2020,03,01),y:[5296, 5378, 5154, 5248]},
+			{x: new Date(2020,04,01),y:[5254, 5279, 4788, 4924]},
+			{x: new Date(2020,05,01),y:[4910, 5286, 4770, 5278]},
+			{x: new Date(2020,06,01),y:[5283, 5348, 5032, 5229]},
+			{x: new Date(2020,07,01),y:[5220, 5448, 5164, 5258]},
+			{x: new Date(2020,08,01),y:[5276, 5735, 5215, 5703]},
+			{x: new Date(2020,09,01),y:[5704, 5815, 4888, 5619]},
+			{x: new Date(2020,10,01),y:[5609, 5885, 5548, 5879]},
+			{x: new Date(2020,11,01),y:[5878, 5965, 5823, 5905]},
+			{x: new Date(2021,00,01),y:[5937, 6111, 5935, 6034]},
+			{x: new Date(2021,01,01),y:[6040, 6052, 5671, 5693]},
+			{x: new Date(2021,02,01),y:[5702, 5971, 5604, 5682]},
+			{x: new Date(2021,03,01),y:[5697, 5962, 5477, 5930]},
+			{x: new Date(2021,04,01),y:[5911, 6229, 5910, 5985]},
+			{x: new Date(2021,05,01),y:[5997, 6011, 5566, 5842]},
+			{x: new Date(2021,06,01),y:[5834, 6093, 5675, 5742]},
+			{x: new Date(2021,07,01),y:[5776, 5808, 5118, 5471]},
+			{x: new Date(2021,08,01),y:[5480, 6142, 5318, 5735]},
+			{x: new Date(2021,09,01),y:[5756, 6309, 5700, 6299]},
+			{x: new Date(2021,10,01),y:[6289, 6342, 5972, 6176]},
+			{x: new Date(2021,11,01),y:[6171, 6415, 6129, 6304]}
+		]
+	}]
+});
+chart.render();
+}
+</script>
+</head>
+<body>
+	<h1 id="togglefullscreen">CanvasJS Chart - Technical Indicators</h1>
+	<p>This plugin allows you to add technical indicators to <a href="https://canvasjs.com/" target="_blank">CanvasJS</a> chart. Check out <a href="https://github.com/vishwas-r/CanvasJS-Technical-Indicators">Github Repository</a> for more info / examples.</p>
+	<h4 id="howtouse">How to Use?</h4>
+	<ul>
+		<li>Enable all the Technical Indicators under Chart-Options</li>
+		<li>Render the chart</li>
+	</ul>
+	<pre><code>var chart = new CanvasJS.Chart("chartContainer", {
+    .
+    .
+    .
+    technicalIndicators: {
+        sma: {
+            enabled: true,
+            linkedDataSeriesIndex: 0,
+            period: 7,
+            color: "green",
+            showInLegend: true,
+            name: "SMA"
+        },
+        ema: {
+            enabled: true,
+            linkedDataSeriesIndex: 0,
+            period: 7,
+            color: "red",
+            showInLegend: true,
+            name: "EMA"
+        }
+    },
+    //Chart Options
+    .
+    .
+    .
+});
+chart.render();
+</code></pre>
+	<h4>Live Example:</h4>
+	<div id="chartContainer" style="height: 360px; width: 60%; border: 1px solid black;"></div>
+
+	<br/>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
+	<script src="dist/canvasjs-chart-technical-indicators.min.js"></script>
+</body>
+</html>
