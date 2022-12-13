@@ -1,5 +1,5 @@
 <h1 id="togglefullscreen">CanvasJS Chart - Technical Indicators</h1>
-	<p>This plugin allows you to add technical indicators to <a href="https://canvasjs.com/" target="_blank">CanvasJS</a> chart. Check out <a href="https://github.com/vishwas-r/CanvasJS-Technical-Indicators">Live Example</a>.</p>
+	<p>This plugin allows you to add technical indicators to <a href="https://canvasjs.com/" target="_blank">CanvasJS</a> chart. Check out <a href="https://vishwas-r.github.io/CanvasJS-Charts-Technical-Indicators/">Live Example</a>.</p>
 	<h4 id="howtouse">How to Use?</h4>
 	<ul>
 		<li>Enable all the Technical Indicators under Chart-Options</li>
