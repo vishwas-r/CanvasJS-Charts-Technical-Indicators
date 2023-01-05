@@ -1,6 +1,6 @@
 {
   "name": "canvasjs-technical-indicators",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Add Technical Indicators like SMA, EMA to CanvasJS Charts & StockCharts",
   "main": "dist/canvasjs-technical-indicators.min.js",
   "repository": {
