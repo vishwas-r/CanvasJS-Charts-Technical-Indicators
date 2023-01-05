@@ -1,7 +1,7 @@
-CanvasJS Chart - Technical Indicators
+CanvasJS Technical Indicators
 =====================================
 
-This plugin allows you to add technical indicators to [CanvasJS](https://canvasjs.com/) chart. Check out [Demo](https://vishwas-r.github.io/CanvasJS-Technical-Indicators/).
+This plugin allows you to add technical indicators to [CanvasJS](https://canvasjs.com/) Charts & StockCharts. Check out [Demo](https://vishwas-r.github.io/CanvasJS-Technical-Indicators/).
 
 ### Options
 
