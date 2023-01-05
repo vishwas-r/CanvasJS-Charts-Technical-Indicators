@@ -23,24 +23,30 @@
 			var chart = this;			
 			this.technicalIndicators = {};
 			this.updateCustomOptions();
-			if(this.options.technicalIndicators && this.technicalIndicators.sma.enabled) {
+			if(this.options.technicalIndicators && this.technicalIndicators.sma.enabled) {				
 				this.technicalIndicators.sma.dataPoints = calculateSMA(this.options.data[this.technicalIndicators.sma.linkedDataSeriesIndex].dataPoints, this.technicalIndicators.sma.period);
-				this.options.data.push({type: "line",
-					dataPoints: this.technicalIndicators.sma.dataPoints,
-					color: this.technicalIndicators.sma.color || null,
-					showInLegend: this.technicalIndicators.sma.showInLegend || false,
-					name: this.technicalIndicators.sma.name || ""
-				});
+				if(!this.technicalIndicators.sma.added) {
+					this.options.data.push({type: "line",
+						dataPoints: this.technicalIndicators.sma.dataPoints,
+						color: this.technicalIndicators.sma.color || null,
+						showInLegend: this.technicalIndicators.sma.showInLegend || false,
+						name: this.technicalIndicators.sma.name || ""
+					});
+					this.technicalIndicators.sma.added = true;
+				}
 			}
 			
 			if(this.options.technicalIndicators && this.technicalIndicators.ema.enabled) {
 				this.technicalIndicators.ema.dataPoints = calculateEMA(this.options.data[this.technicalIndicators.ema.linkedDataSeriesIndex].dataPoints, this.technicalIndicators.ema.period);
-				this.options.data.push({type: "line",
-					dataPoints: this.technicalIndicators.ema.dataPoints,
-					color: this.technicalIndicators.ema.color || null,
-					showInLegend: this.technicalIndicators.ema.showInLegend || false,
-					name: this.technicalIndicators.ema.name || ""
-				});
+				if(!this.technicalIndicators.ema.added) {
+					this.options.data.push({type: "line",
+						dataPoints: this.technicalIndicators.ema.dataPoints,
+						color: this.technicalIndicators.ema.color || null,
+						showInLegend: this.technicalIndicators.ema.showInLegend || false,
+						name: this.technicalIndicators.ema.name || ""
+					});
+					this.technicalIndicators.ema.added = true;
+				}
 			}
 
 			
@@ -79,9 +85,19 @@
 		var chartRender = CanvasJS.Chart.prototype.render;
 		CanvasJS.Chart.prototype.render = function (options) {
 			this.addTechnicalIndicators();
-			var result = chartRender.apply(this, arguments);				
+			var result = chartRender.apply(this, arguments);			
 			return result ;
 		}
-		
     }
+
+	if(CanvasJS && CanvasJS.StockChart) {
+		var StockChartRender = CanvasJS.StockChart.prototype.render;
+		CanvasJS.StockChart.prototype.render = function (options) {
+			var result = StockChartRender.apply(this, arguments);
+			for(var i = 0; i < this.charts.length; i++) {
+				this.charts[i].render();
+			}		
+			return result ;
+		}
+	}
 })();
