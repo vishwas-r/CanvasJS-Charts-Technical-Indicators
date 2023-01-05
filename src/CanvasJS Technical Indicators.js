@@ -1,20 +1,20 @@
 (function(){
     var CanvasJS = window.CanvasJS || CanvasJS ? window.CanvasJS : null;
     if (CanvasJS && CanvasJS.Chart) {
-		CanvasJS.Chart.prototype.updateCustomOptions = function() {
-			if(this.options && this.options.technicalIndicators) {
-				if(this.options.technicalIndicators.sma) {
-					this.technicalIndicators.sma = this.options.technicalIndicators.sma || {};
-					this.technicalIndicators.sma.enabled = this.options.technicalIndicators.sma.enabled || false;
-					this.technicalIndicators.sma.linkedDataSeriesIndex = this.options.technicalIndicators.sma.linkedDataSeriesIndex || 0;
-					this.technicalIndicators.sma.period = this.options.technicalIndicators.sma.period || 5;
+		CanvasJS.Chart.prototype.updateCustomOptions = function(options) {
+			if(options && options.technicalIndicators) {
+				if(options.technicalIndicators.sma) {
+					this.technicalIndicators.sma = options.technicalIndicators.sma || {};
+					this.technicalIndicators.sma.enabled = options.technicalIndicators.sma.enabled || false;
+					this.technicalIndicators.sma.linkedDataSeriesIndex = options.technicalIndicators.sma.linkedDataSeriesIndex || 0;
+					this.technicalIndicators.sma.period = options.technicalIndicators.sma.period || 5;
 				}
 				
-				if(this.options.technicalIndicators.ema) {
-					this.technicalIndicators.ema = this.options.technicalIndicators.ema || {};
-					this.technicalIndicators.ema.enabled = this.options.technicalIndicators.ema.enabled || false;
-					this.technicalIndicators.ema.linkedDataSeriesIndex = this.options.technicalIndicators.ema.linkedDataSeriesIndex || 0;
-					this.technicalIndicators.ema.period = this.options.technicalIndicators.ema.period || 5;
+				if(options.technicalIndicators.ema) {
+					this.technicalIndicators.ema = options.technicalIndicators.ema || {};
+					this.technicalIndicators.ema.enabled = options.technicalIndicators.ema.enabled || false;
+					this.technicalIndicators.ema.linkedDataSeriesIndex = options.technicalIndicators.ema.linkedDataSeriesIndex || 0;
+					this.technicalIndicators.ema.period = options.technicalIndicators.ema.period || 5;
 				}
 				
 			}
@@ -22,8 +22,8 @@
 		CanvasJS.Chart.prototype.addTechnicalIndicators = function() {
 			var chart = this;			
 			this.technicalIndicators = {};
-			this.updateCustomOptions();
-			if(this.options.technicalIndicators && this.technicalIndicators.sma.enabled) {				
+			this.updateCustomOptions(this.options);
+			if(this.options.technicalIndicators && this.technicalIndicators.sma && this.technicalIndicators.sma.enabled) {				
 				this.technicalIndicators.sma.dataPoints = calculateSMA(this.options.data[this.technicalIndicators.sma.linkedDataSeriesIndex].dataPoints, this.technicalIndicators.sma.period);
 				if(!this.technicalIndicators.sma.added) {
 					this.options.data.push({type: "line",
@@ -36,7 +36,7 @@
 				}
 			}
 			
-			if(this.options.technicalIndicators && this.technicalIndicators.ema.enabled) {
+			if(this.options.technicalIndicators && this.technicalIndicators.ema && this.technicalIndicators.ema.enabled) {
 				this.technicalIndicators.ema.dataPoints = calculateEMA(this.options.data[this.technicalIndicators.ema.linkedDataSeriesIndex].dataPoints, this.technicalIndicators.ema.period);
 				if(!this.technicalIndicators.ema.added) {
 					this.options.data.push({type: "line",
@@ -84,16 +84,49 @@
 		
 		var chartRender = CanvasJS.Chart.prototype.render;
 		CanvasJS.Chart.prototype.render = function (options) {
-			this.addTechnicalIndicators();
+			if(!this.stockChart);
+				this.addTechnicalIndicators();
+
 			var result = chartRender.apply(this, arguments);			
 			return result ;
 		}
     }
 
 	if(CanvasJS && CanvasJS.StockChart) {
+		CanvasJS.StockChart.prototype.updateCustomOptions = function() {
+			if(this.options && this.options.technicalIndicators) {
+				if(this.options.technicalIndicators.sma) {
+					this.technicalIndicators.sma = this.options.technicalIndicators.sma || {};
+					this.technicalIndicators.sma.linkedChartIndex = this.options.technicalIndicators.sma.linkedChartIndex || 0;
+				}
+				
+				if(this.options.technicalIndicators.ema) {
+					this.technicalIndicators.ema = this.options.technicalIndicators.ema || {};
+					this.technicalIndicators.ema.linkedChartIndex = this.options.technicalIndicators.ema.linkedChartIndex || 0;
+				}
+			}
+		}
+
+		CanvasJS.StockChart.prototype.addTechnicalIndicators = function() {
+			this.technicalIndicators = {};
+			this.updateCustomOptions();
+
+			for(var i = 0; i < this.charts.length; i++) {
+				if(i === this.technicalIndicators.ema.linkedChartIndex) {
+					this.charts[i].options.technicalIndicators = { ema: this.options.technicalIndicators.ema };
+					this.charts[i].addTechnicalIndicators();
+				}
+				if(i === this.technicalIndicators.sma.linkedChartIndex) {
+					this.charts[i].options.technicalIndicators = { sma: this.options.technicalIndicators.sma };
+					this.charts[i].addTechnicalIndicators();
+				}
+			}
+		}
+
 		var StockChartRender = CanvasJS.StockChart.prototype.render;
 		CanvasJS.StockChart.prototype.render = function (options) {
 			var result = StockChartRender.apply(this, arguments);
+			this.addTechnicalIndicators();
 			for(var i = 0; i < this.charts.length; i++) {
 				this.charts[i].render();
 			}		

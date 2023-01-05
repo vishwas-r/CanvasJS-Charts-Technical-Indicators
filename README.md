@@ -19,6 +19,7 @@ This plugin allows you to add technical indicators to [CanvasJS](https://canvasj
 * Enable all the Technical Indicators under Chart-Options
 * Render the chart
 ```
+/* Chart */
 var chart = new CanvasJS.Chart("chartContainer", {
 .
 .
@@ -47,6 +48,38 @@ technicalIndicators: {
 .
 });
 chart.render();
+
+/* StockChart */
+var stockChart = new CanvasJS.StockChart("chartContainer", {
+.
+.
+.
+technicalIndicators: {
+	sma: {
+		enabled: true,
+		linkedChartIndex: 0,
+		linkedDataSeriesIndex: 0,
+		period: 7,
+		color: "green",
+		showInLegend: true,
+		name: "SMA"
+	},
+	ema: {
+		enabled: true,
+		linkedChartIndex: 0,
+		linkedDataSeriesIndex: 0,
+		period: 7,
+		color: "red",
+		showInLegend: true,
+		name: "EMA"
+	}
+},
+//StockChart Options
+.
+.
+.
+});
+stockChart.render();
 ```
 
 [![BuyMeACoffee](https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png)](https://www.buymeacoffee.com/vishwas.r)

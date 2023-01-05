@@ -74,30 +74,36 @@
 					</tr>
 					<tr>
 						<th scope="row">2</th>
-						<td>linkedDataSeriesIndex</td>
-						<td>To which Series does the Indicator is linked to</td>
+						<td>linkedChartIndex</td>
+						<td>To which Chart should the indicator be added (Applicable only in StockChart)</td>
 						<td>0, 1, etc.</td>
 					</tr>
 					<tr>
 						<th scope="row">3</th>
+						<td>linkedDataSeriesIndex</td>
+						<td>To which series should the indicator be linked</td>
+						<td>0, 1, etc.</td>
+					</tr>
+					<tr>
+						<th scope="row">4</th>
 						<td>period</td>
 						<td>Duration of Moving Average</td>
 						<td>5, 7, etc.</td>
 					</tr>
 					<tr>
-						<th scope="row">4</th>
+						<th scope="row">5</th>
 						<td>color</td>
 						<td>Color of the Dataseries</td>
 						<td>"#000", "red", etc.</td>
 					</tr>
 					<tr>
-						<th scope="row">5</th>
+						<th scope="row">6</th>
 						<td>showInLegend</td>
-						<td>Boolean denoting if the indicator name should be shwon in legend or not</td>
+						<td>Boolean denoting if the indicator name should be shown in legend or not</td>
 						<td>true, false</td>
 					</tr>
 					<tr>
-						<th scope="row">6</th>
+						<th scope="row">7</th>
 						<td>name</td>
 						<td>Name of the Dataseries</td>
 						<td>"SMA", "EMA", etc.</td>
@@ -114,6 +120,7 @@
 				<li>Render the chart</li>
 			</ul>
 			<div>
+				<h4>Chart</h4>
 				<pre class="bg-light p-4"><code>var chart = new CanvasJS.Chart("chartContainer", {
 	.
 	.
@@ -142,6 +149,37 @@
 	.
 });
 chart.render();</code></pre>
+				<h4>StockChart</h4>
+				<pre class="bg-light p-4"><code>var stockChart = new CanvasJS.StockChart("chartContainer", {
+	.
+	.
+	.
+	technicalIndicators: {
+		sma: {
+			enabled: true,
+			linkedChartIndex: 0,
+			linkedDataSeriesIndex: 0,
+			period: 7,
+			color: "green",
+			showInLegend: true,
+			name: "SMA"
+		},
+		ema: {
+			enabled: true,
+			linkedChartIndex: 0,
+			linkedDataSeriesIndex: 0,
+			period: 7,
+			color: "red",
+			showInLegend: true,
+			name: "EMA"
+		}
+	},
+	//StockChart Options
+	.
+	.
+	.
+});
+stockChart.render();</code></pre>
 			</div>
 		</section>
 
@@ -162,7 +200,7 @@ chart.render();</code></pre>
 			</div>
 		</footer>
 	</div>
-	<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<script src="https://canvasjs.com/assets/script/canvasjs.stock.min.js"> </script>
 	<script src="dist/canvasjs-technical-indicators.min.js"></script>
 	<script type="text/javascript">
@@ -239,6 +277,26 @@ chart.render();</code></pre>
 			subtitles: [{
 				text: "Bitcoin Price (in USD)"
 			}],
+			technicalIndicators: {
+				sma: {
+					enabled: true,
+					linkedChartIndex: 0,
+					linkedDataSeriesIndex: 0,
+					period: 7,
+					color: "green",
+					showInLegend: true,
+					name: "SMA"
+				},
+				ema: {
+					enabled: true,
+					linkedChartIndex: 0,
+					linkedDataSeriesIndex: 0,
+					period: 7,
+					color: "red",
+					showInLegend: true,
+					name: "EMA"
+				}
+			},
 			charts: [{
 				axisX: {
 					crosshair: {
@@ -252,24 +310,6 @@ chart.render();</code></pre>
 				legend: {
 					cursor: "pointer",
 					itemclick: legendClickHandler
-				},
-				technicalIndicators: {
-					sma: {
-						enabled: true,
-						linkedDataSeriesIndex: 0,
-						period: 7,
-						color: "green",
-						showInLegend: true,
-						name: "SMA"
-					},
-					ema: {
-						enabled: true,
-						linkedDataSeriesIndex: 0,
-						period: 7,
-						color: "red",
-						showInLegend: true,
-						name: "EMA"
-					}
 				},
 				toolTip: {
 					shared: true
